@@ -21,6 +21,6 @@ do
     $tools_dir_root/ensembl-vep/vep -i $vep_in -o $vep_out_raw --species homo_sapiens --cache --dir_cache $tools_dir_root --uniprot --protein --symbol --transcript_version --tsl --offline --tab --sift p --polyphen p --hgvsg --check_existing
     
     $tools_dir_root/ensembl-vep/filter_vep -i $vep_out_raw -o $vep_out_filtered -filter "(IMPACT is HIGH) or (IMPACT is MODERATE)" --force_overwrite
-    
+
     echo "VEP filtered"
 done
