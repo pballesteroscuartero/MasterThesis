@@ -7,7 +7,9 @@ library(tidyr)
 library(ggpubr)
 library(discover)
 
-output_path "../outputs"
+output_path =  "../outputs"
+
+
 filter_vep = function(input_path) {
   folders = list.dirs(input_path)[-1]
   colnames = c("Uploaded_variation",	"Location",	"Allele",	"Gene",	"Feature",	"Feature_type",	"Consequence",	"cDNA_position",	"CDS_position",	"Protein_position",	"Amino_acids",	"Codons",	"Existing_variation",	"IMPACT",	"DISTANCE",	"STRAND",	"FLAGS",	"SYMBOL",	"SYMBOL_SOURCE",	"HGNC_ID",	"TSL",	"ENSP",	"SWISSPROT",	"TREMBL",	"UNIPARC",	"UNIPROT_ISOFORM",	"SIFT",	"PolyPhen",	"HGVSg",	"CLIN_SIG",	"SOMATIC",	"PHENO")
@@ -73,6 +75,8 @@ census_mut_filt = census_mut %>%
 mut_genes = unique(census_mut$GENE_SYMBOL)
 
 vep_census_li = filter_vep("Y:/Data/Masters/Pilar/CRC/VEP")
+saveRDS(vep_census_li, paste0(output_path, "mutations_after_census_KnownVariants_filtering.rds"))
+
 vep_snv_indel = vep_census_li %>%
   dplyr::distinct(Uploaded_variation, sample, .keep_all = TRUE)%>%
   mutate(amino_original = lapply(Amino_acids, function(x) str_split(x, "/")[[1]][1])) %>%
